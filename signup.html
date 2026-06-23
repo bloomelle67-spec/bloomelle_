@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloomelle | Buat Akun</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#fff8f2',
+            sage: '#a9b9a3',
+            terracotta: '#c96a5c',
+            blush: '#efb6ae',
+            charcoal: '#1f2937'
+          },
+          boxShadow: {
+            soft: '0 18px 45px rgba(15, 23, 42, 0.10)',
+            glow: '0 24px 60px rgba(201, 106, 92, 0.18)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://accounts.google.com/gsi/client" defer onload="window.initGoogleOAuth && window.initGoogleOAuth()"></script>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(201,106,92,0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(169,185,163,0.20), transparent 30%),
+        linear-gradient(180deg, #fffaf6, #fff8f2);
+      min-height: 100vh;
+    }
+    .glass {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.40);
+    }
+    .soft-shadow { box-shadow: 0 24px 60px rgba(15,23,42,0.12); }
+    .fade-up { animation: fadeUp 700ms ease both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .field {
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+    .field:focus-within {
+      border-color: rgba(201,106,92,0.58);
+      box-shadow: 0 0 0 4px rgba(201,106,92,0.12);
+      transform: translateY(-1px);
+    }
+    .secret-text {
+      -webkit-text-security: disc;
+    }
+  </style>
+  <link rel="stylesheet" href="site.css" />
+</head>
+<body class="text-slate-800">
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#e8a58f]/20 blur-3xl"></div>
+    <div class="absolute right-0 top-44 h-96 w-96 rounded-full bg-[#c96a5c]/15 blur-3xl"></div>
+  </div>
+
+  <main class="mx-auto flex min-h-screen max-w-sm items-center px-4 py-6 lg:px-8 lg:py-8">
+    <section class="fade-up glass soft-shadow w-full rounded-[28px] p-4 sm:p-5 bg-white/95">
+      <div class="flex flex-col items-center text-center">
+        <div class="grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
+          <img src="logo.jpeg" alt="Bloomelle logo" class="h-full w-full rounded-full object-cover" />
+        </div>
+      </div>
+
+      <form id="signupForm" class="mt-5 space-y-3" autocomplete="off" novalidate>
+        <button id="googleSignupBtn" type="button" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 flex items-center justify-center gap-3">
+          <i class="fa-brands fa-google text-red-500"></i>
+          Daftar dengan Google
+        </button>
+        <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-400">
+          <span class="h-px flex-1 bg-slate-200"></span>
+          <span>atau</span>
+          <span class="h-px flex-1 bg-slate-200"></span>
+        </div>
+
+        <label class="block">
+          <span class="text-sm font-bold text-slate-600">Nama Lengkap</span>
+          <div class="field mt-2 rounded-2xl border border-slate-200 bg-white/90 px-3 py-2">
+            <input id="signupName" name="signup-name" type="text" autocomplete="name" class="w-full bg-transparent outline-none placeholder:text-slate-400 text-slate-900 text-sm" placeholder="Masukkan nama lengkap" />
+          </div>
+        </label>
+
+        <label class="block">
+          <span class="text-sm font-bold text-slate-600">Email</span>
+          <div class="field mt-2 rounded-2xl border border-slate-200 bg-white/90 px-3 py-2">
+            <input id="signupEmail" name="signup-email" type="email" autocomplete="email" class="w-full bg-transparent outline-none placeholder:text-slate-400 text-slate-900 text-sm" placeholder="Masukkan email kamu" />
+          </div>
+        </label>
+
+        <label class="block">
+          <span class="text-sm font-bold text-slate-600">Password</span>
+          <div class="field mt-2 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/90 px-3 py-2">
+            <i class="fa-solid fa-lock text-slate-400"></i>
+            <input id="signupPassword" name="signup-password" type="password" autocomplete="new-password" class="w-full bg-transparent outline-none placeholder:text-slate-400 text-slate-900 text-sm" placeholder="Buat password" />
+          </div>
+        </label>
+
+        <button type="submit" class="mt-2 w-full rounded-2xl bg-terracotta px-4 py-3 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#bd5649]">Buat Akun</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+      const form = document.getElementById('signupForm');
+      const googleSignupBtn = document.getElementById('googleSignupBtn');
+      let googleTokenClient = null;
+
+      function initGoogleOAuth() {
+        if (!window.google || !google.accounts || !google.accounts.oauth2) return;
+        googleTokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: 'openid email profile',
+          callback: handleGoogleResponse
+        });
+      }
+
+      window.initGoogleOAuth = initGoogleOAuth;
+
+      function handleGoogleResponse(tokenResponse) {
+        if (!tokenResponse || tokenResponse.error) {
+          return;
+        }
+
+        fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+        })
+          .then(res => res.json())
+          .then(userInfo => {
+            if (!userInfo || !userInfo.email) return;
+            window.BloomelleAuth.persistAuth({
+              email: userInfo.email,
+              name: userInfo.name || userInfo.email.split('@')[0]
+            }, true);
+            window.location.replace('index.html');
+          });
+      }
+
+      initGoogleOAuth();
+
+      if (googleSignupBtn) {
+        googleSignupBtn.addEventListener('click', () => {
+          if (!googleTokenClient) return;
+          googleTokenClient.requestAccessToken({ prompt: 'select_account' });
+        });
+      }
+
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        window.location.replace('login.html');
+      });
+    });
+  </script>
+</body>
+</html>
